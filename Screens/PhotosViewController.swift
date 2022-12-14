@@ -17,7 +17,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
   
     let imageProccesor = ImageProcessor()
     
-
+    let startDate = Date()
    var cgImage = [CGImage?]()
     
     
@@ -56,14 +56,14 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         view.addSubview(scroll)
         scroll.addSubview(cv)
         setConstraints()
-        imageProccesor.processImagesOnThread(sourceImages: picGallery, filter: .monochrome(color: .black, intensity: 1.8), qos: .background, completion: {[weak self] images in  picGallery = images
+        imageProccesor.processImagesOnThread(sourceImages: picGallery, filter: .monochrome(color: .black, intensity: 1.8), qos: .userInitiated, completion: {[weak self] images in  picGallery = images
                                                                                 .compactMap {$0}
                                                                                 .map { UIImage(cgImage: $0) }
                                                                                     DispatchQueue.main.async {
                                                                                         self?.cv.reloadData()
                                                                                             }
         })
-        
+        print("Process time:  \(Date().timeIntervalSince(startDate)) seconds")
        
     }
     
