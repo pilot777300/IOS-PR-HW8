@@ -56,14 +56,15 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         view.addSubview(scroll)
         scroll.addSubview(cv)
         setConstraints()
-        // var cgImage = [CGImage?]()
-        imageProccesor.processImagesOnThread(sourceImages: picGallery, filter: .monochrome(color: .blue, intensity: 5.8), qos: .userInitiated, completion: {cgImage in  filterAction() })
+        imageProccesor.processImagesOnThread(sourceImages: picGallery, filter: .monochrome(color: .black, intensity: 1.8), qos: .background, completion: {[weak self] images in  picGallery = images
+                                                                                .compactMap {$0}
+                                                                                .map { UIImage(cgImage: $0) }
+                                                                                    DispatchQueue.main.async {
+                                                                                        self?.cv.reloadData()
+                                                                                            }
+        })
         
-        func filterAction() {
-        DispatchQueue.main.async {
-            self.cv.reloadData()
-            }
-        }
+       
     }
     
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
