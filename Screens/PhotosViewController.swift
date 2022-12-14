@@ -114,15 +114,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewWillDisappear(_ animated: Bool) {
          super.viewWillDisappear(animated)
          navigationController?.navigationBar.isHidden = true
-       // publisherFasade.removeSubscription(for: self)
-        // publisherFasade.rechargeImageLibrary()
         }
-    }
-
- 
-//        extension PhotosViewController: ImageLibrarySubscriber {
-//            func receive(images: [UIImage]) {
-//                picGallery = images
-//            cv.reloadData()
-//        }
     
+    }
